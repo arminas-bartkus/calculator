@@ -9,14 +9,9 @@ let number2 = "";
 let operator = "";
 let numberToDisplay = "";
 let operatorUsed = false;
-let secondNumberToDisplay = "";
 
 
 let display = document.querySelector(".display");
-let buttons = document.querySelectorAll("button");
-
-// buttons.foreach().addEventListener("click", (event) => {
-//     let target = event.target;
 
 const wrapper = document.getElementById('wrapper');
 
@@ -26,12 +21,34 @@ wrapper.addEventListener('click', (event) => {
     return;
   }
 
+
+
+
+if (((event.target.id == "=" ) && (!operatorUsed || numberToDisplay == ""))) {
+
+}
+
+else if (event.target.id == "clear") {
+
+    number1 = "";
+    number2 = "";
+    operator = "";
+    numberToDisplay = "";
+    operatorUsed = false;
+    display.textContent = "Display";
+}
+
+else {
+
 if (event.target.id == "=" &&
     operatorUsed && number1 != "") {
         number2 = numberToDisplay;
         numberToDisplay = "";
+
+        // if divide by 0 snarky comment
         numberToDisplay = operate(number1, number2, operator);
-        display.textContent = numberToDisplay;
+        display.textContent = numberToDisplay.toFixed(5);
+        numberToDisplay = "";
     }
 
 else if (operatorUsed) {
@@ -58,7 +75,7 @@ else if (operator == "") {
     numberToDisplay += event.target.id;
 display.textContent = numberToDisplay;
 }
-
+}
 })
 
 function operate(number1, number2, operator) {
