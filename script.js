@@ -28,7 +28,7 @@ if (((event.target.id == "=" ) && (!operatorUsed || numberToDisplay == ""))) {
 
 }
 
-else if (event.target.id == "clear") {
+else if (event.target.id == "ac") {
 
     number1 = "";
     number2 = "";
@@ -46,7 +46,13 @@ if (event.target.id == "=" &&
         numberToDisplay = "";
 
         // if divide by 0 snarky comment
-        numberToDisplay = operate(number1, number2, operator);
+
+        if (number2 == "0" && operator == "/") {
+            display.textContent = "I won't do it!"
+        }
+        else {
+            numberToDisplay = operate(number1, number2, operator);
+        }
         display.textContent = numberToDisplay.toFixed(5);
         numberToDisplay = "";
     }
