@@ -11,6 +11,7 @@ let numberToDisplay = "";
 let operatorUsed = false;
 let secondNumberToDisplay = "";
 
+
 let display = document.querySelector(".display");
 let buttons = document.querySelectorAll("button");
 
@@ -25,36 +26,38 @@ wrapper.addEventListener('click', (event) => {
     return;
   }
 
-if ((event.target.id == "add" || event.target.id == "takeaway"
-|| event.target.id == "divide"|| event.target.id == "multiply")
-&& operatorUsed == false) {
-    
+if (event.target.id == "=" &&
+    operatorUsed && number1 != "") {
+        number2 = numberToDisplay;
+        numberToDisplay = "";
+        numberToDisplay = operate(number1, number2, operator);
+        display.textContent = numberToDisplay;
+    }
+
+else if (operatorUsed) {
+    numberToDisplay += event.target.id;
+    display.textContent = numberToDisplay;
+} 
+
+
+if (numberToDisplay != "" && (
+   event.target.id == "+" 
+|| event.target.id == "-"
+|| event.target.id == "/"
+|| event.target.id == "*") &&
+   operatorUsed == false) {
+
     operatorUsed = true;
     operator = event.target.id;
     number1 = numberToDisplay;
-    }
- else {
+    numberToDisplay = "";
+    display.textContent = event.target.id;
+    
+}
+else if (operator == "") {
     numberToDisplay += event.target.id;
-    display.textContent = numberToDisplay;
- }
-
-if (number1 != "" && operatorUsed == true) {
-    display.textContent = ""
-    secondNumberToDisplay += event.target.id;
-    display.textContent = secondNumberToDisplay;
+display.textContent = numberToDisplay;
 }
-
-
-
-if ((event.target.id == "add" || event.target.id == "takeaway"
-|| event.target.id == "divide"|| event.target.id == "multiply")
-&& operatorUsed == true) {
-
-    //do calculations, send number to number 1 and restart
-    // calculators for number 2
-
-}
-
 
 })
 
