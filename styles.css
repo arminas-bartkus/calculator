@@ -1,0 +1,29 @@
+.interfaceContainer {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px;
+
+}
+body {
+    height: 98vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.rowContainer {
+    margin: 5px;
+    display: flex;
+    flex: 1;
+    border: solid red 
+}
+button {
+    margin: 5px;
+}
+
+.display {
+    border: solid green;
+    margin: 10px 5px 0px 5px;
+    padding: 10px 5px;
+}
