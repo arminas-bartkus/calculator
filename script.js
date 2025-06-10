@@ -39,14 +39,14 @@ const buttonFor8 = document.getElementById("8");
 const buttonFor9 = document.getElementById("9");
 const buttonForDecimal = document.getElementById(".");
 
-const equalsKey = document.getElementById("=")
-const plusKey = document.getElementById("+")
-const takeawayKey = document.getElementById("-")
-const divideKey = document.getElementById("/")
-const multiplyKey = document.getElementById("*")
+const equalsKey = document.getElementById("=");
+const plusKey = document.getElementById("+");
+const takeawayKey = document.getElementById("-");
+const divideKey = document.getElementById("/");
+const multiplyKey = document.getElementById("*");
 
-const allClearKey = document.getElementById("ac")
-const backspaceKey = document.getElementById("backspace")
+const allClearKey = document.getElementById("ac");
+const backspaceKey = document.getElementById("backspace");
 
 document.addEventListener("keyup", (e) => {
  
@@ -60,45 +60,45 @@ document.addEventListener("keyup", (e) => {
     switch (e.key) {
       
         case "1":
-            buttonFor1.click()
+            buttonFor1.click();
             break
         case "2":
-            buttonFor2.click()
+            buttonFor2.click();
             break
         case "3":
-            buttonFor3.click()
+            buttonFor3.click();
             break
         case "4":
-            buttonFor4.click()
+            buttonFor4.click();
             break
         case "5":
-            buttonFor5.click()
+            buttonFor5.click();
             break
         case "6":
-            buttonFor6.click()
+            buttonFor6.click();
             break
         case "7":
-            buttonFor7.click()
+            buttonFor7.click();
             break
         case "8":
-            buttonFor8.click()
+            buttonFor8.click();
             break
         case "9":
-            buttonFor9.click()
+            buttonFor9.click();
             break
         case "0":
-            buttonFor0.click()
+            buttonFor0.click();
             break
 
         // Special Characters    
         case ".":
-            buttonForDecimal.click()
+            buttonForDecimal.click();
             break
         case "Enter":
-            equalsKey.click()
+            equalsKey.click();
             break
         case "Backspace":
-            backspaceKey.click()
+            backspaceKey.click();
             break
 
         // Operators Clicked
@@ -155,7 +155,7 @@ else if (event.target.id == "backspace") {
 
      // if equation is evaluated and clear is pressed
     if (equalsPressed) {
-        resetCalculator()
+        resetCalculator();
         display.textContent = "";
      }
     else if (workingOnNumber1) {    
@@ -165,7 +165,7 @@ else if (event.target.id == "backspace") {
     }
 
     else if (workingOnNumber2) {    
-        useBackspace()
+        useBackspace();
         number2 = numberToDisplay; }
 
     // if last input was an operator
@@ -181,7 +181,7 @@ else if (event.target.id == "backspace") {
 
 else if (event.target.id == "ac") {
 
-    resetCalculator()
+    resetCalculator();
     display.textContent = "";
 }
 
@@ -197,13 +197,13 @@ else if (event.target.id == "=" && number1 != "") {
       
 
         if (number2 == "0" && operator == "/") {
-            display.textContent = "I won't do it!"
+            display.textContent = "I won't do it!";
         }
         else {
             numberToDisplay = operate(number1, number2, operator);
             
             if (numberToDisplay % 1 == 0) {
-                display.textContent = numberToDisplay
+                display.textContent = numberToDisplay;
             }
             else {
                 display.textContent = numberToDisplay.toFixed(5);
@@ -218,7 +218,7 @@ else if (event.target.id == "=" && number1 != "") {
 
 else if (number2 != "" && operatorButtonUsedNow) {
     
-    theoreticalNumber1 = operate(number1, number2, operator)
+    theoreticalNumber1 = operate(number1, number2, operator);
     operator = event.target.id;
     number1 = theoreticalNumber1;
     number2 = "";
@@ -242,7 +242,7 @@ else if (lastInputIsOperator && operatorButtonUsedNow == false) {
 else if (numberToDisplay != "" && operatorButtonUsedNow 
      && lastInputIsOperator == false) {
     workingOnNumber1 = false;
-    lastInputIsOperator = true
+    lastInputIsOperator = true;
     operator = event.target.id;
     number1 = numberToDisplay;
     numberToDisplay = "";
@@ -262,17 +262,17 @@ else if (operatorButtonUsedNow == false) {
 function operate(number1, number2, operator) {
 
 if (operator == "+") {
-    return addition(Number(number1), Number(number2))
+    return addition(Number(number1), Number(number2));
 }
 else if (operator == "-") {
-    return subtraction(Number(number1), Number(number2))
+    return subtraction(Number(number1), Number(number2));
 }
 else if (operator == "*") {
-    return multiplication(Number(number1), Number(number2))
+    return multiplication(Number(number1), Number(number2));
 }
 
 else if (operator == "/") {
-    return division(Number(number1), Number(number2))
+    return division(Number(number1), Number(number2));
 }
 }
 function resetCalculator() {
