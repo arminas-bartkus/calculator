@@ -1,5 +1,4 @@
 // Calculation logic
-
 const addition = (a, b) => a + b;
 const subtraction = (a, b) => a - b;
 const multiplication = (a, b) => a * b;
@@ -41,7 +40,6 @@ const buttonFor9 = document.getElementById("9");
 const buttonForDecimal = document.getElementById(".");
 
 const equalsKey = document.getElementById("=")
-
 const plusKey = document.getElementById("+")
 const takeawayKey = document.getElementById("-")
 const divideKey = document.getElementById("/")
@@ -50,7 +48,7 @@ const multiplyKey = document.getElementById("*")
 const allClearKey = document.getElementById("ac")
 const backspaceKey = document.getElementById("backspace")
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keyup", (e) => {
  
     if (e.shiftKey) {
         switch (e.key) {
@@ -91,14 +89,18 @@ document.addEventListener("keydown", (e) => {
         case "0":
             buttonFor0.click()
             break
-        
+
+        // Special Characters    
+        case ".":
+            buttonForDecimal.click()
+            break
         case "Enter":
             equalsKey.click()
             break
-
         case "Backspace":
             backspaceKey.click()
             break
+
         // Operators Clicked
         case "+":
             plusKey.click();
@@ -118,7 +120,6 @@ document.addEventListener("keydown", (e) => {
         }
 })
 
-
 wrapper.addEventListener('click', (event) => {
   const isButton = event.target.nodeName === 'BUTTON';
   if (!isButton) {
@@ -126,6 +127,9 @@ wrapper.addEventListener('click', (event) => {
   }
 
 // ON BUTTON CLICK
+
+// Checks if input is an operator
+
 if  (event.target.id == "+" 
 || event.target.id == "-"
 || event.target.id == "/"
@@ -139,15 +143,11 @@ else {
 
 
 // If equals pressed early do nothing
-if (((event.target.id == "=" ) && (numberToDisplay == ""))) {
-
-}
-else if ((event.target.id == "=" ) && workingOnNumber2 == false) {
+if ((event.target.id == "=" ) && (numberToDisplay == "" || workingOnNumber2 == false)) {
 
 }
 // Removes ability for multiple periods
-else if (display.textContent.includes(".") && event.target.id == ".") {
-
+else if (event.target.id == "." && display.textContent.includes(".")) {
 }
 
 // Backspace button logic
@@ -155,56 +155,33 @@ else if (event.target.id == "backspace") {
 
      // if equation is evaluated and clear is pressed
     if (equalsPressed) {
-        number1 = "";
-        number2 = "";
-        operator = "";
-        numberToDisplay = "";
-        theoreticalNumber1 = "";
-
-        lastInputIsOperator = false;
-        operatorButtonUsedNow = false;
-        equalsPressed = false;
+        resetCalculator()
         display.textContent = "";
-
      }
     else if (workingOnNumber1) {    
-        
-        let backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
-        numberToDisplay = backSpacedDisplay;
+        useBackspace();
         number1 = numberToDisplay;
-        display.textContent = numberToDisplay;}
+
+    }
 
     else if (workingOnNumber2) {    
-        
-        backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
-        numberToDisplay = backSpacedDisplay;
-        number2 = numberToDisplay;
-        display.textContent = numberToDisplay;}
-
+        useBackspace()
+        number2 = numberToDisplay; }
 
     // if last input was an operator
     else if (lastInputIsOperator) {
+        
         operator = "";
         lastInputIsOperator = false;
         display.textContent = "";
      }
-
 }
 
 // if AC clicked reset calculator
 
 else if (event.target.id == "ac") {
 
-    number1 = "";
-    number2 = "";
-    operator = "";
-    numberToDisplay = "";
-    theoreticalNumber1 = "";
-
-    lastInputIsOperator = false;
-    operatorButtonUsedNow = false;
-    equalsPressed = false;
-
+    resetCalculator()
     display.textContent = "";
 }
 
@@ -213,26 +190,26 @@ else if (event.target.id == "ac") {
 else if (event.target.id == "=" && number1 != "") {
         
         workingOnNumber2 = false;
+        equalsPressed = true;
+        
         number2 = numberToDisplay;
         numberToDisplay = "";
+      
 
         if (number2 == "0" && operator == "/") {
             display.textContent = "I won't do it!"
         }
         else {
             numberToDisplay = operate(number1, number2, operator);
-            display.textContent = numberToDisplay.toFixed(5);
             
+            if (numberToDisplay % 1 == 0) {
+                display.textContent = numberToDisplay
+            }
+            else {
+                display.textContent = numberToDisplay.toFixed(5);
+            }
             // Reset Calc apart from display
-
-            numberToDisplay = "";
-            number1 = "";
-            number2 = "";
-            operator = "";
-            theoreticalNumber1 = "";
-            lastInputIsOperator = false;
-            operatorButtonUsedNow = false;
-            equalsPressed = true;
+            resetCalculator();
             
         }
     }
@@ -240,7 +217,6 @@ else if (event.target.id == "=" && number1 != "") {
 // logic for multi operators 
 
 else if (number2 != "" && operatorButtonUsedNow) {
-    
     
     theoreticalNumber1 = operate(number1, number2, operator)
     operator = event.target.id;
@@ -253,6 +229,7 @@ else if (number2 != "" && operatorButtonUsedNow) {
 // Update display after operator (second number) and get ready to store number to display to number2
 
 else if (lastInputIsOperator && operatorButtonUsedNow == false) {
+    
     workingOnNumber2 = true;
     numberToDisplay += event.target.id;
     number2 = numberToDisplay;
@@ -297,6 +274,20 @@ else if (operator == "*") {
 else if (operator == "/") {
     return division(Number(number1), Number(number2))
 }
-
-
+}
+function resetCalculator() {
+            numberToDisplay = "";
+            number1 = "";
+            number2 = "";
+            operator = "";
+            theoreticalNumber1 = "";
+            lastInputIsOperator = false;
+            operatorButtonUsedNow = false;
+            workingOnNumber1 = false;
+            workingOnNumber2 = false;
+}
+function useBackspace() {
+     let backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
+        numberToDisplay = backSpacedDisplay;
+        display.textContent = numberToDisplay;
 }
