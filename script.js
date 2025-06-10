@@ -57,6 +57,7 @@ else if (event.target.id == "ac") {
     number2 = "";
     operator = "";
     numberToDisplay = "";
+    theoreticalNumber1 = "";
 
     lastInputIsOperator = false;
     operatorButtonUsedNow = false;
@@ -84,7 +85,7 @@ else if (event.target.id == "=" &&
             number1 = "";
             number2 = "";
             operator = "";
-
+            theoreticalNumber1 = "";
             lastInputIsOperator = false;
             operatorButtonUsedNow = false;
             
