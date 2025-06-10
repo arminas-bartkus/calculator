@@ -59,8 +59,6 @@ document.addEventListener("keydown", (e) => {
                 break
         }
     }
-
-
     switch (e.key) {
       
         case "1":
