@@ -10,13 +10,17 @@ let number1 = "";
 let number2 = "";
 let operator = "";
 let numberToDisplay = "";
+let theoreticalNumber1 = "";
+
 
 let lastInputIsOperator = false;
 let operatorButtonUsedNow = false;
 
 let additionalOperatorUsed = false;
 
-let theoreticalNumber1 = "";
+let equalsPressed = false;
+
+
 
 
 
@@ -49,6 +53,41 @@ if (((event.target.id == "=" ) && (numberToDisplay == ""))) {
 
 }
 
+// Removes ability for multiple periods
+else if (display.textContent.includes(".") && event.target.id == ".") {
+
+}
+
+else if (event.target.id == "clear") {
+
+     if (lastInputIsOperator) {
+        operator = "";
+        lastInputIsOperator = false;
+        display.textContent = "";
+     }
+
+     else if (equalsPressed) {
+        number1 = "";
+        number2 = "";
+        operator = "";
+        numberToDisplay = "";
+        theoreticalNumber1 = "";
+
+        lastInputIsOperator = false;
+        operatorButtonUsedNow = false;
+        equalsPressed = false;
+        display.textContent = "Display";
+
+
+     }
+     else {    
+    let backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
+    numberToDisplay = backSpacedDisplay;
+    display.textContent = backSpacedDisplay;}
+
+
+}
+
 // if AC clicked reset calculator
 
 else if (event.target.id == "ac") {
@@ -61,6 +100,7 @@ else if (event.target.id == "ac") {
 
     lastInputIsOperator = false;
     operatorButtonUsedNow = false;
+    equalsPressed = false;
 
     display.textContent = "Display";
 }
@@ -88,6 +128,7 @@ else if (event.target.id == "=" &&
             theoreticalNumber1 = "";
             lastInputIsOperator = false;
             operatorButtonUsedNow = false;
+            equalsPressed = true;
             
         }
     }
