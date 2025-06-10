@@ -16,10 +16,10 @@ let theoreticalNumber1 = "";
 let lastInputIsOperator = false;
 let operatorButtonUsedNow = false;
 
-let additionalOperatorUsed = false;
-
 let equalsPressed = false;
 
+let workingOnNumber1 = false;
+let workingOnNumber2 = false;
 
 
 
@@ -58,15 +58,11 @@ else if (display.textContent.includes(".") && event.target.id == ".") {
 
 }
 
+// Backspace button logic
 else if (event.target.id == "clear") {
 
-     if (lastInputIsOperator) {
-        operator = "";
-        lastInputIsOperator = false;
-        display.textContent = "";
-     }
-
-     else if (equalsPressed) {
+     // if equation is evaluated and clear is pressed
+    if (equalsPressed) {
         number1 = "";
         number2 = "";
         operator = "";
@@ -78,12 +74,35 @@ else if (event.target.id == "clear") {
         equalsPressed = false;
         display.textContent = "Display";
 
-
      }
-     else {    
-    let backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
-    numberToDisplay = backSpacedDisplay;
-    display.textContent = backSpacedDisplay;}
+    else if (workingOnNumber1) {    
+        let backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
+        numberToDisplay = backSpacedDisplay;
+        number1 = numberToDisplay;
+        display.textContent = numberToDisplay;}
+
+    else if (workingOnNumber2) {    
+        backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
+        numberToDisplay = backSpacedDisplay;
+        number2 = numberToDisplay;
+        display.textContent = numberToDisplay;}
+
+
+           // if last input was an operator
+    else if (lastInputIsOperator) {
+        operator = "";
+        lastInputIsOperator = false;
+        display.textContent = "";
+     }
+
+    
+    // else if (workingOnNumber2) {  
+        
+    //     backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
+    //     number
+    
+    
+    // }
 
 
 }
@@ -107,8 +126,9 @@ else if (event.target.id == "ac") {
 
 // If equals pressed when calculator is ready for calc
 
-else if (event.target.id == "=" &&
-     number1 != "") {
+else if (event.target.id == "=" && number1 != "") {
+        
+        workingOnNumber2 = false;
         number2 = numberToDisplay;
         numberToDisplay = "";
 
@@ -133,6 +153,8 @@ else if (event.target.id == "=" &&
         }
     }
 
+// logic for multi operators 
+
 else if (number2 != "" && operatorButtonUsedNow) {
     
     
@@ -147,12 +169,9 @@ else if (number2 != "" && operatorButtonUsedNow) {
 // Update display after operator (second number) and get ready to store number to display to number2
 
 else if (lastInputIsOperator && operatorButtonUsedNow == false) {
-
+    workingOnNumber2 = true;
     numberToDisplay += event.target.id;
     number2 = numberToDisplay;
-
-
-
     display.textContent = numberToDisplay;
 } 
 
@@ -161,7 +180,7 @@ else if (lastInputIsOperator && operatorButtonUsedNow == false) {
 
 else if (numberToDisplay != "" && operatorButtonUsedNow 
      && lastInputIsOperator == false) {
-
+    workingOnNumber1 = false;
     lastInputIsOperator = true
     operator = event.target.id;
     number1 = numberToDisplay;
@@ -172,6 +191,7 @@ else if (numberToDisplay != "" && operatorButtonUsedNow
 
 // logic to update number if operator not yet pressed (i.e. inputting number1)
 else if (operatorButtonUsedNow == false) {
+    workingOnNumber1 = true;
     numberToDisplay += event.target.id;
     display.textContent = numberToDisplay;
 }
