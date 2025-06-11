@@ -9,8 +9,6 @@ let number1 = "";
 let number2 = "";
 let operator = "";
 let numberToDisplay = "";
-let theoreticalNumber1 = "";
-
 
 let lastInputIsOperator = false;
 let operatorButtonUsedNow = false;
@@ -154,7 +152,7 @@ else if (event.target.id == "." && display.textContent.includes(".")) {
 else if (event.target.id == "backspace") {
 
      // if equation is evaluated and clear is pressed
-    if (equalsPressed) {
+    if (equalsPressed && !workingOnNumber1 && !workingOnNumber2) {
         resetCalculator();
         display.textContent = "";
      }
@@ -197,17 +195,12 @@ else if (event.target.id == "=" && number1 != "") {
       
 
         if (number2 == "0" && operator == "/") {
-            display.textContent = "I won't do it!";
+            display.textContent = "ERROR: Division by 0";
         }
         else {
             numberToDisplay = operate(number1, number2, operator);
             
-            if (numberToDisplay % 1 == 0) {
-                display.textContent = numberToDisplay;
-            }
-            else {
-                display.textContent = numberToDisplay.toFixed(5);
-            }
+            checkIfDecimalAndDisplay();
             // Reset Calc apart from display
             resetCalculator();
             
@@ -218,12 +211,12 @@ else if (event.target.id == "=" && number1 != "") {
 
 else if (number2 != "" && operatorButtonUsedNow) {
     
-    theoreticalNumber1 = operate(number1, number2, operator);
+    numberToDisplay = operate(number1, number2, operator);
     operator = event.target.id;
-    number1 = theoreticalNumber1;
+    number1 = numberToDisplay;
     number2 = "";
+    checkIfDecimalAndDisplay()
     numberToDisplay = "";
-    display.textContent = theoreticalNumber1;
 }
 
 // Update display after operator (second number) and get ready to store number to display to number2
@@ -280,7 +273,7 @@ function resetCalculator() {
             number1 = "";
             number2 = "";
             operator = "";
-            theoreticalNumber1 = "";
+            numberToDisplay = "";
             lastInputIsOperator = false;
             operatorButtonUsedNow = false;
             workingOnNumber1 = false;
@@ -290,4 +283,12 @@ function useBackspace() {
      let backSpacedDisplay = display.textContent.substring(0, display.textContent.length - 1);
         numberToDisplay = backSpacedDisplay;
         display.textContent = numberToDisplay;
+}
+function checkIfDecimalAndDisplay() {
+    if (numberToDisplay % 1 == 0) {
+        display.textContent = numberToDisplay;
+    }
+    else {
+        display.textContent = numberToDisplay.toFixed(5);
+    }
 }
