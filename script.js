@@ -46,76 +46,112 @@ const multiplyKey = document.getElementById("*");
 const allClearKey = document.getElementById("ac");
 const backspaceKey = document.getElementById("backspace");
 
-document.addEventListener("keyup", (e) => {
- 
+
+document.addEventListener("keydown", (e) => {
+
     if (e.shiftKey) {
         switch (e.key) {
             case "Backspace":
+                allClearKey.classList.add("hovered")
+                setTimeout(() => {
+                allClearKey.classList.remove("hovered")
+            }, 1)
                 allClearKey.click();
+                break
+            case key = "*":
+                addHoverEffect()
+                multiplyKey.click();
+                break
+            case key = "+":
+                addHoverEffect()
+                plusKey.click();
                 break
         }
     }
+    else {
+
+
     switch (e.key) {
-      
-        case "1":
+        case key = "1":
+            addHoverEffect()
             buttonFor1.click();
             break
-        case "2":
+        case key = "2":
+            addHoverEffect()
             buttonFor2.click();
             break
-        case "3":
+        case key = "3":
+            addHoverEffect()
             buttonFor3.click();
             break
-        case "4":
+        case key = "4":
+            addHoverEffect()
             buttonFor4.click();
             break
-        case "5":
+        case key = "5":
+            addHoverEffect()
             buttonFor5.click();
             break
-        case "6":
+        case key = "6":
+            addHoverEffect()
             buttonFor6.click();
             break
-        case "7":
+        case key = "7":
+            addHoverEffect()
             buttonFor7.click();
             break
-        case "8":
+        case key = "8":
+            addHoverEffect()
             buttonFor8.click();
             break
-        case "9":
+        case key = "9":
+            addHoverEffect()
             buttonFor9.click();
             break
-        case "0":
+        case key = "0":
+            addHoverEffect()
             buttonFor0.click();
             break
 
         // Special Characters    
-        case ".":
+        case key = ".":
+            addHoverEffect()
             buttonForDecimal.click();
             break
         case "Enter":
+            equalsKey.classList.add("hovered")
+            setTimeout(() => {
+            equalsKey.classList.remove("hovered")
+            }, 50)
             equalsKey.click();
             break
         case "Backspace":
+            backspaceKey.classList.add("hovered")
+            setTimeout(() => {
+            backspaceKey.classList.remove("hovered")
+            }, 50)
             backspaceKey.click();
             break
 
-        // Operators Clicked
-        case "+":
-            plusKey.click();
-            break
-        case "-":
+        // Non shift Operators Clicked
+     
+        case key = "-":
+            addHoverEffect()
             takeawayKey.click();
             break
-        case "*":
-            multiplyKey.click();
-            break
         case "x":
+            multiplyKey.classList.add("hovered")
+            setTimeout(() => {
+            multiplyKey.classList.remove("hovered")
+            }, 50)
             multiplyKey.click();
             break
-        case "/":
+        case key = "/":
+            addHoverEffect()
             divideKey.click();
             break
         }
+    }
 })
 
 wrapper.addEventListener('click', (event) => {
@@ -291,4 +327,11 @@ function checkIfDecimalAndDisplay() {
     else {
         display.textContent = numberToDisplay.toFixed(5);
     }
+}
+function addHoverEffect() {
+       
+        document.getElementById(key).classList.add("hovered")
+        setTimeout(() => {
+        document.getElementById(key).classList.remove("hovered")
+            }, 50)
 }

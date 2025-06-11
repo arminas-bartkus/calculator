@@ -42,14 +42,15 @@ button {
 .display {
     border: solid #ececec;
     margin: 10px;
-    padding: 10px 10px;
+    padding: 10px 15px;
     height: 60px;
     font-size: 30px;
     color: #ececec;
-    display: flex;
     align-items: center;
     font-weight: bold;
     border-radius: 15px;
+    display: flex;
+    overflow: hidden;
 }
 
 #wrapper {
@@ -107,4 +108,8 @@ button:hover {
 
 .zero {
     border-bottom-left-radius: 20px;
+}
+
+.hovered {
+    background-color: #1b1124;
 }
